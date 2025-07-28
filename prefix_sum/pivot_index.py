@@ -1,16 +1,23 @@
 from typing import List
 
-# https://leetcode.com/problems/find-pivot-index/
-def pivotIndex(nums: List):
-    total = sum(nums)
-    left_sum = 0
+# Problem: https://leetcode.com/problems/find-pivot-index/
+# Tags: Prefix Sum, Array
+# Approach: Track left sum; derive right sum from total sum
 
-    for index, num in range(len(nums):
+def pivotIndex(nums: List[int]) -> int:
+    total = sum(nums)  # Total sum of array
+    left_sum = 0        # Sum of elements to the left of current index
+
+    for index, num in enumerate(nums):
+        # Right sum = total sum - left sum - current number
         right_sum = total - left_sum - num
 
-        if right_sum == left_sum:
+        # If left and right sums are equal, return index
+        if left_sum == right_sum:
             return index
-        
+
+        # Move current number to left_sum for next iteration
         left_sum += num
-    
-    return -1 
+
+    # If no pivot index found, return -1
+    return -1
